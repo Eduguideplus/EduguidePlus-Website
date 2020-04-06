@@ -1,0 +1,444 @@
+@media only screen and (max-width:1024px){
+/*    .wrapper {left: 1%; right: 1%}
+
+}*/
+    
+@media only screen and (max-width:980px){
+    .optninr{width:90%;}
+    .radiobtn + .option{width:100%}
+
+    
+}
+@media only screen and (max-width:800px){
+    .lftmatrix {
+    display: inline-block;
+    float: left;
+    margin: 0 2% 0 0;
+    width: 48%;
+    }
+
+    .questioninr{padding:10px 10px;}
+    .matrixoptn{width:103%}
+
+}
+@media only screen and (max-width:480px){
+    .stdntnam{display: none}
+    /*.profile{width:auto}*/
+    .testname{font-size: 14px;font-family: open_sansregular;line-height: 16px;text-align: center}
+    /*.rightpart{display: none;}*/
+    .sbjcthdng{display: none}
+    .maindiv{
+        top: 60px;
+    }
+    .profile{
+        width: auto;
+    }
+    .rightmain {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e0e0e0;
+   /* bottom: 98px;*/
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    position: absolute;
+    /*right: -3px;
+    top: -83px;*/
+    width: 220px;
+    z-index: 9999;
+}
+    .logo{padding:10px 5px;
+            margin-bottom: 10px;
+    }
+
+    .crcl{
+            margin-right: 5px;
+            margin-left: 5px;
+    }
+
+    .submit li{
+        width: auto;
+        padding-left: 0px;
+    }
+    
+.submit {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e0e0e0;
+    bottom: 0;
+    position: absolute;
+    right: 0px;
+    z-index: 99991;}
+.rytpart {   background: transparent none repeat scroll 0 0;
+    color: #777;
+    font-size: 11px;
+    height: 0;
+    line-height: 0;
+    padding: 0;
+    right: 0;
+    top: -13px;
+    width: auto;}
+    .clock{display: none}
+    .clckinr { margin: 0 auto;padding: 3px 4px;width: auto;}
+    .lftpart{margin-right: 0;}
+    .wrapper{
+        left: 0;
+        right: 0;
+    }
+    .leftmain{margin-right:0px}
+    .questionoutr{right: 0}
+    .quehdnglft{font-size: 12px; margin-left:10px}
+    .markdef{padding-right: 3px}
+    .markdef:last-child{padding-right: 3px;}
+    .radiobtn + .option{padding: 10px}
+    .optncntnt{width:85%}
+    .footrlft{
+            height: auto;
+                padding: 0px 10px;
+    bottom: 0px;
+    left: 6px;
+    }
+
+    .arrow_slide{
+            margin: 8px 0;
+            padding: 0px;
+    }
+    .subjinr{height: 26px;line-height: 26px;}
+    .subject{height: 26px;width:113px;}
+    .dropdown-content{top: 26px;}
+    header{height: auto;}
+   /* .inrmain{top: 36px;}*/
+    .profileimg{margin-right: 40px;}
+    /*.rytbtn{display: block}*/
+
+    .arrow_slide2{
+        margin: 0px 0px;
+    padding: 1px 8px;
+    width: auto;
+    font-size: 12px;
+    }
+
+    .chckbx_ques{
+            margin: 5px 0;
+    }
+
+    .chckbx_ques .info{
+        padding: 2px 5px;
+        font-size: 10px;
+    }
+    .quehdngryt{
+        font-size: 12px;
+    }
+
+    /**************new*******/
+
+    .res-log-cart{
+        display:inline-block;
+    }
+
+
+    .res-log-cart .dropdown{
+        margin-top: -45px;
+    }
+
+    .header_banner{
+        margin-top: 0px;
+    }
+    /*.navbar-header{
+        display: inline-block;
+    }*/
+
+    .res-log-bx{
+        display: inline-block;
+    }
+    .dis-none{
+        display: none !important;
+    }
+    .navbar-header{
+        margin-top: 0px;
+    }
+
+    .navbar-toggle .icon-bar{
+        height: 3px;
+    width: 22px;
+    }
+    .navbar-toggle{
+            padding: 4px 3px;
+    }
+
+    .navbar-header {
+     float: right !important;
+    display: inline-block !important;
+}
+
+/*.res-cart{
+        position: absolute;
+    top: 14px;
+    right: 60px;
+}*/
+
+/*.container{
+    padding-left: 0px;
+    padding-right: 0px;
+}*/
+
+
+.logo{
+    width: 100%;
+    text-align: center;
+}
+
+.logo img{
+    width: 45%;
+}
+
+
+.top_header .nav>li a{
+    padding: 5px 11px;
+}
+
+.navbar{
+    margin-bottom: 0px;
+}
+.exam-inner{
+    margin-bottom: 0px;
+}
+
+
+.deximJobs_tabs .main-container{
+    padding:0px;
+}
+
+.pad-lft-10{
+    padding-left:10px !important;
+}
+.rightmain{
+    display: none;
+}
+.profile{
+    display: none;
+}
+
+
+.angle2{
+    display: none;
+}
+
+
+}
+
+
+@media only screen and (min-width: 481px) and (max-width:767px){
+
+    .stdntnam{display: none}
+    /*.profile{width:auto}*/
+    .testname{font-size: 14px;font-family: open_sansregular;line-height: 16px;text-align: center}
+    /*.rightpart{display: none;}*/
+    .sbjcthdng{display: none}
+    .maindiv{
+        top: 60px;
+    }
+    .profile{
+        width: auto;
+    }
+    .rightmain {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e0e0e0;
+   /* bottom: 98px;*/
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    position: absolute;
+    /*right: -3px;
+    top: -83px;*/
+    width: 220px;
+    z-index: 9999;
+}
+    .logo{padding:10px 5px;
+            margin-bottom: 10px;
+    }
+
+    .crcl{
+            margin-right: 5px;
+            margin-left: 5px;
+    }
+
+    .submit li{
+        width: auto;
+        padding-left: 0px;
+    }
+    
+.submit {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e0e0e0;
+    bottom: 0;
+    position: absolute;
+    right: 0px;
+    z-index: 99991;}
+.rytpart {   background: transparent none repeat scroll 0 0;
+    color: #777;
+    font-size: 11px;
+    height: 0;
+    line-height: 0;
+    padding: 0;
+    right: 0;
+    top: -13px;
+    width: auto;}
+    .clock{display: none}
+    .clckinr { margin: 0 auto;padding: 3px 4px;width: auto;}
+    .lftpart{margin-right: 0;}
+    .wrapper{
+        left: 0;
+        right: 0;
+    }
+    .leftmain{margin-right:0px}
+    .questionoutr{right: 0}
+    .quehdnglft{font-size: 12px; margin-left:10px}
+    .markdef{padding-right: 3px}
+    .markdef:last-child{padding-right: 3px;}
+    .radiobtn + .option{padding: 10px}
+    .optncntnt{width:85%}
+    .footrlft{
+            height: auto;
+                padding: 0px 10px;
+    bottom: 0px;
+    left: 6px;
+    }
+
+    .arrow_slide{
+            margin: 8px 0;
+            padding: 0px;
+    }
+    .subjinr{height: 26px;line-height: 26px;}
+    .subject{height: 26px;width:113px;}
+    .dropdown-content{top: 26px;}
+    header{height: auto;}
+   /* .inrmain{top: 36px;}*/
+    .profileimg{margin-right: 40px;}
+    /*.rytbtn{display: block}*/
+
+    .arrow_slide2{
+        margin: 0px 0px;
+    padding: 1px 8px;
+    width: auto;
+    font-size: 12px;
+    }
+
+    .chckbx_ques{
+            margin: 5px 0;
+    }
+
+    .chckbx_ques .info{
+        padding: 2px 5px;
+        font-size: 10px;
+    }
+    .quehdngryt{
+        font-size: 12px;
+    }
+
+    /**************new*******/
+
+    .res-log-cart{
+        display:inline-block;
+    }
+
+
+    .res-log-cart .dropdown{
+        margin-top: -45px;
+    }
+
+    .header_banner{
+        margin-top: 0px;
+    }
+    /*.navbar-header{
+        display: inline-block;
+    }*/
+
+    .res-log-bx{
+        display: inline-block;
+    }
+    .dis-none{
+        display: none !important;
+    }
+    .navbar-header{
+        margin-top: 0px;
+    }
+
+    .navbar-toggle .icon-bar{
+        height: 3px;
+    width: 22px;
+    }
+    .navbar-toggle{
+            padding: 4px 3px;
+    }
+
+    .navbar-header {
+     float: right !important;
+    display: inline-block !important;
+}
+
+/*.res-cart{
+        position: absolute;
+    top: 14px;
+    right: 60px;
+}*/
+
+/*.container{
+    padding-left: 0px;
+    padding-right: 0px;
+}*/
+
+
+.logo{
+    width: 100%;
+    text-align: center;
+}
+
+.logo img{
+    width: 45%;
+}
+
+
+.top_header .nav>li a{
+    padding: 5px 11px;
+}
+
+.navbar{
+    margin-bottom: 0px;
+}
+.exam-inner{
+    margin-bottom: 0px;
+}
+
+
+.deximJobs_tabs .main-container{
+    padding:0px;
+}
+
+.pad-lft-10{
+    padding-left:10px !important;
+}
+.rightmain{
+    display: none;
+}
+.profile{
+    display: none;
+}
+
+
+.angle2{
+    display: none;
+}
+
+
+
+
+
+
+
+
+}
+
+
+@media only screen and (min-width: 768px) and (max-width:991px){
+
+    .maindiv{
+        top: 85px;
+    }
+}

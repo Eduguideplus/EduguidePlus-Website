@@ -1,0 +1,57 @@
+<IfModule mod_headers.c>
+Header set Access-Control-Allow-Origin "*"
+Header add Cache-Control:  "no-store, no-cache, must-revalidate"
+
+</IfModule>
+
+RewriteEngine On
+
+### WWW & HTTPS
+
+# ensure www.
+
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ensure https
+
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+
+RewriteCond %{HTTPS} off
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+### WWW & HTTPS
+
+RewriteCond %{REQUEST_URI} ^/system.*
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(.*)$ /index.php?/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(.+)$ /index.php?/$1 [L]

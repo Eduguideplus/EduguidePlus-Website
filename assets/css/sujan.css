@@ -1,0 +1,122 @@
+table caption {
+    padding: .5em 0;
+}
+
+.candidate-main .table-bordered>thead>tr>td, .table-bordered>thead>tr>th
+{
+    border-bottom-width: 1px !important;
+    /* font-size: 13px !important; */
+    /* text-align: center !important; */
+    /* justify-content: center !important; */
+    /* align-items: center !important; */
+    /* flex-direction: column !important; */
+     color: #fff !important; 
+    /* min-width: 136px; */
+    vertical-align: middle;
+    /* padding: 7px 0px !important; */
+    border:none;
+}
+.table-bordered>thead>tr>th{
+    font-size: 15px !important;
+    font-weight: 500 !important;
+}
+.candidate-main .table-bordered>thead>tr>td, .table-bordered>thead>tr>th:nth-child(1){
+    min-width: 55px;
+}
+.candidate-main .table-bordered>thead>tr>td, .table-bordered>thead>tr>th:nth-child(4){
+    min-width: 85px;
+}
+.candidate-main .table-bordered>thead>tr>td, .table-bordered>thead>tr>th:nth-child(2){
+    min-width: 160px;
+}
+.candidate-main .table-bordered>thead>tr>td, .table-bordered>thead>tr>th:nth-child(3){
+    min-width: 0px;
+}
+
+.candidate-main .table-bordered>thead>tr>td, .table-bordered>thead>tr>th:nth-child(11){
+    min-width: 50px;
+}
+.candidate-main .table-bordered>thead>tr>td, .table-bordered>thead>tr>th:nth-child(10){
+    min-width: 60px;
+}
+.candidate-main .table-bordered>thead>tr>td, .table-bordered>thead>tr>th:nth-child(9){
+    min-width: 93px;
+}
+.table-bordered>tbody>tr>td{
+    text-align: center;
+    border:none;
+    border: 1px solid #2196f357;
+}
+.candidate-main .table-bordered>thead>tr>td, .table-bordered>thead>tr>th:second-child
+{
+    white-space: nowrap !important;
+    display: table-cell !important;
+}
+.table-bordered>tbody>tr:nth-child(even)
+{
+    background-color: #9CC2E7;
+}
+.candidate-main {
+    width: 100%;
+    float: left;
+    background: #fff;
+    padding: 16px 0px;
+}
+.note
+{
+    width: 100%;
+    float: left;
+}
+.note p
+{
+    text-align: left;
+    font-size: 13px !important;
+    font-weight: 600;
+    color: #333 !important;
+    margin: 7px 0px 0px 0px !important;
+    display: inline-block !important;
+}
+.dashboard_button
+{
+        display: inline-block;
+    margin: -20px 16px 15px 0;
+    text-align: right;
+    float: right;
+}
+.pdf
+{
+    padding: 7px 25px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #03A9F4;
+    border: none;
+    outline: none;
+    color: #fff;
+}
+.excel
+{
+    padding: 7px 25px;
+    font-size: 14px;
+    font-weight: 600;
+    background: green;
+    border: none;
+    outline: none;
+    color: #fff;
+}
+.pdf:first-child{
+    background-color: red;
+}
+.pdf:nth-child(2){
+    background-color: yellow;
+    color: #333;
+}
+@media screen and (max-width: 767px) {
+  table caption {
+    border-bottom: 1px solid #ddd;
+  }
+}
+.table-bordered>tbody>tr>td a.pdf{
+    padding: 5px 0px;
+    width: 89px;
+    display: block
+}

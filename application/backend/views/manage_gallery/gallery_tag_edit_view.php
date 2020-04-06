@@ -1,0 +1,259 @@
+<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+  <!--<script>tinymce.init({ selector:'textarea' });</script>-->
+  <script type="text/javascript">
+    tinymce.init({
+      selector: ".tinyarea",
+      theme: "modern",
+      menubar: "edit insert tools",
+      plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern imagetools"
+      ],
+      toolbar1: "undo redo | styleselect | bold italic| forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | link preview",
+      image_advtab: true
+    });
+  </script>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Gallery Tag Edit
+        
+      </h1>
+      
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        
+        <!--/.col (left) -->
+        <!-- right column -->
+        <div class="col-md-12">
+          <!-- Horizontal Form -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <!-- <h3 class="box-title">CATEGORY ADD</h3> -->
+            <div id="validation" style="color:red;"></div>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal" action="<?php echo base_url();?>index.php/manage_gallery_tag/edit_action" method="post" id="categoryadd_form_validation" enctype='multipart/form-data'>
+              <div class="box-body">
+               <span style="color: rgb(255, 0, 0); padding-left: 2px;">(* fields are required)</span>
+               
+              
+
+              <div class="form-group">
+                  <label for="category_name" class="col-sm-2 control-label">Gallery Tag<span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span></label>
+
+                  <div class="col-sm-8">
+                    <input type="text" name="category_name" id="category_name" onkeyup="catname(this.value)" class="form-control" placeholder="Gallery Tag" autocomplete="off" value="<?php echo $cat_details[0]->gallery_tag_name; ?>">
+                    
+                  </div>
+
+                  <input type="hidden" id="edited_id" name="edited_id" value="<?php echo $cat_details[0]->gallery_tag_id;?>" >
+                 
+              </div>
+<div class="clearfix"></div> 
+
+
+                             <!-- <div class="form-group" style="margin-top: 10px;">
+                                    <label for="image" class="col-sm-2 control-label text-center">Album Image(788 X 543 px):<span style="color:#F00"></span></label>
+                                    <div class="col-sm-7">
+                                        <input type="file"  name="edit_cat_image" id="image" onchange="readURL(this);">
+                                       <?php
+                                        if($cat_details[0]->cat_image!="")
+                                        {
+                                            ?>
+                                            <img id="prof_pic"
+                                                 src="<?php echo base_url() ?>../assets/uploads/category/<?php echo $cat_details[0]->cat_image; ?>"
+                                                 alt="User Image" style="width:90px;height:90px;"/>
+                                            <?php
+                                        }
+                                        else
+                                        {
+                                            ?>
+                                            <img id="prof_pic" src="<?php echo base_url()?>../assets/uploads/no-image.jpg"  alt="User Image" style="margin-top: 10px;width:60px;height:60px;" />
+                                            <?php
+                                        }
+                                        ?>
+                                        <input type="hidden" id="old_image" name="old_image" value="<?php echo $cat_details[0]->cat_image;?>" >
+                    <input type="hidden" id="edited_id" name="edited_id" value="<?php echo $cat_details[0]->cat_id;?>" >
+                                    </div>
+                            </div> -->
+
+                           <!--  <div class="form-group">
+                  <label for="branch_name" class="col-sm-2 control-label">Meta Title</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="meta_title" value="<?php echo $cat_details[0]->meta_title;?>" id="branch_name" placeholder="Enter Meta Title">
+                    </div>
+                 
+                </div>
+                <div class="form-group">
+                  <label for="branch_name" class="col-sm-2 control-label">Meta Keyword</label>
+
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="meta_keyword" value="<?php echo $cat_details[0]->meta_keyword;?>" id="branch_name" placeholder="Enter Meta Keyword">
+                    </div>
+                 
+                </div><div class="form-group">
+                  <label for="branch_address" class="col-sm-2 control-label">Meta Description</label>
+
+                    <div class="col-sm-9" >
+                      <div id="branch_address_area"><textarea class="form-control" rows="5" name="meta_description" id="branch_address" placeholder=" Meta Description"><?php echo $cat_details[0]->meta_description;?></textarea></div>
+                    </div>
+                 
+                </div> -->
+
+
+
+
+
+           <!--  <div class="clearfix"></div> 
+              <div class="form-group">
+                  <label for="sort_order" class="col-sm-2 control-label">Category Sort Order</label>
+
+                  <div class="col-sm-8">
+                    <input type="number" name="sort_order" id="sort_order"
+                     onchange="sort_order(this.value)"
+                     class="form-control" placeholder="Sort Order" value="<?php echo $cat_details[0]->sort_order; ?>">
+                    
+                  </div>
+                 
+              </div> -->
+  
+              
+
+             
+
+              </div>
+             
+             
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <a href="<?php echo base_url();?>index.php/manage_gallery_tag/list_view" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-info pull-right" onclick="return form_validation()">Update</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+          <!-- /.box -->
+          <!-- general form elements disabled -->
+          
+          <!-- /.box -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- </div> -->
+ 
+<script src="<?php echo base_url();?>custom_script/validation_rulse.js"></script>
+
+<script>
+  function get_subcategory(value)
+{
+
+  //alert(value);
+    var html='<option value="">Select</option>';
+    if(value>0)
+    {
+      $.ajax(
+          {
+              type: "POST",
+              dataType:'json',
+              url:"<?php echo base_url();?>index.php/manage_category/get_subcategory",
+              data: {category_id: value},
+              async: false,
+              success: function(data)
+              {
+
+                  //alert(data[0].category_id);
+                  for(var i=0; i<data.length; i++)
+                  {
+                      html+='<option value="'+data[i].category_id+'">'+data[i].category_name+'</option>';
+                  }
+                  $("#sub_category").html(html);
+
+              }
+          });
+    }
+    else
+    {
+        $("#sub_category").html(html);
+    }
+
+
+}
+
+
+
+  </script>
+  <script>
+  function product_Submit_fm()
+  {
+    var category = $('#category_name').val();
+        if (!isNull(category)) 
+        {
+          $('#category_name').removeClass('black_border').addClass('red_border');
+          return false;
+        } 
+        else 
+        {
+          $('#category_name').removeClass('red_border').addClass('black_border');
+        }
+
+     
+  }
+  function form_validation()
+    {
+        //alert("ok");
+
+        $('#categoryadd_form_validation').attr('onchange', 'product_Submit_fm()');
+        $('#categoryadd_form_validation').attr('onkeyup', 'product_Submit_fm()');
+
+        product_Submit_fm();
+        //alert($('#contact_form .red_border').size());
+
+        if ($('#categoryadd_form_validation .red_border').size() > 0)
+        {
+            $('#categoryadd_form_validation .red_border:first').focus();
+            $('#categoryadd_form_validation .alert-error').show();
+            return false;
+        } 
+        else 
+        {
+
+            $('#categoryadd_form_validation').submit();
+        }
+    }
+ 
+
+  </script>
+
+   
+    <script>
+
+    function readURL(input)
+    {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#prof_pic')
+                    .attr('src', e.target.result)
+                    .width(90)
+                    .height(90);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+ </script>         

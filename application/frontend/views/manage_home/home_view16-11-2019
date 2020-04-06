@@ -1,0 +1,440 @@
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-5166643241987864",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<div class="header_banner">
+         <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators res-dot">
+    <?php 
+      foreach($slider as $key=>$row)
+      {
+     ?>
+    <li data-target="#myCarousel" data-slide-to="<?php echo $key;?>" class="<?php if($key==0) { ?>active  <?php } ?>"></li>
+    <?php
+  }
+  ?>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+<?php 
+foreach($slider as $key=>$row)
+{
+?>
+    <div class="item <?php if($key==0){ ?>active <?php } ?>">
+      <img src="<?php echo base_url()?>assets/uploads/slider/<?php echo $row->image;?>" alt="Los Angeles">
+        <div class="overlay"></div>
+       <div class="container slogan">
+        <div class="col-lg-12">
+         <h1 class="animated fadeInDown">
+        <?php echo $row->title_1;?></h1>
+          <h3 class="text-center"><?php echo $row->title_2;?></h3>
+          <!-- <a href="<?php echo $row->button_link;?>"><?php echo $row->button_title;?></a> -->
+        </div>
+
+      </div>
+    </div>
+    <?php
+  }
+  ?>
+  </div>
+ 
+
+  <!-- Left and right controls -->
+
+</div>
+          
+</div>
+      
+
+
+
+
+<div class="Welcome_section">
+      <div class="container">
+        <div class="rt-grid-12 rt-alpha rt-omega">
+               <div class="rt-block  about-us">
+            <div class="module-surround">
+                                  <div class="module-content">
+                      
+
+                        <div class="custom about-us">
+                          <h4><?php echo @$my_firm[0]->title;?> </h4>
+                          <?php echo @$my_firm[0]->content;?>
+                        </div>
+                    </div>
+                  </div>
+           </div>
+  
+          </div>
+      </div>
+    </div>
+
+
+
+<div class="why_us">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 p-no">
+        <div class="tab_menu">
+          <div><h2>Why Us</h2></div>
+          <div class="panel with-nav-tabs panel-default">
+
+                <div class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#<?php echo $why_us[0]->title;?>" data-toggle="tab"><?php echo $why_us[0]->title;?></a></li>
+                            <li><a href="#<?php echo $why_us[1]->title;?>" data-toggle="tab"><?php echo $why_us[1]->title;?></a></li>
+                            <li><a href="#<?php echo $why_us[2]->title;?>" data-toggle="tab"><?php echo $why_us[2]->title;?></a></li>
+
+                        </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="<?php echo $why_us[0]->title;?>">
+                          <?php echo $why_us[0]->content; ?>
+                        </div>
+                        <div class="tab-pane fade" id="<?php echo $why_us[1]->title; ?>">
+                          <?php echo $why_us[1]->content; ?>
+                        </div>
+                        <div class="tab-pane fade" id="<?php echo $why_us[2]->title; ?>">
+                          <?php echo $why_us[2]->content; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="tab_menu">
+          <div><h2>Our Philosophy</h2></div>
+          <div class="panel-group wrap" id="accordion" role="tablist" aria-multiselectable="true">
+            <?php 
+              $i=0;
+              foreach($philosophy as $key=>$row)
+              {
+                $i++;
+              ?> 
+
+      <div class="panel">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $key;?>" aria-expanded="true" aria-controls="collapseOne">
+          <?php echo $row->title;?>
+        </a>
+      </h4>
+        </div>
+        <div id="collapse<?php echo $key;?>" class="panel-collapse collapse <?php if($key==0){ echo 'in';} ?> " role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+           <?php echo $row->content;?>
+          </div>
+        </div>
+      </div>
+      <?php
+    }
+    ?>
+  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="starttest add_sec">
+
+  <div class="container">
+    <div class="row">
+      <div class="nopad test-app courses-area">
+        <h2 class="head-title text-center"> Services Basket</h2>
+      </div>
+    <div class="modcontent clearfix">    
+                    <div id="basket-testimonials" class="owl-carousel">
+                        
+                        <?php 
+                        foreach($service as $ser)
+                        {
+                          if($ser->service_title=='TRAINING')
+                          {
+                            $link=$this->url->link(131);
+                          }
+                          else if($ser->service_title=='FINANCIAL SOLUTIONS')
+                          {
+                            $link=$this->url->link(149);
+                          }
+                          else{
+                            $link=$this->url->link(150);
+                          }
+                          ?>
+                        <div class="item">
+                            <div class="add_img">
+                              <a href="<?php echo $link; ?>">
+                            <img src="<?php echo base_url();?>assets/uploads/service_basket/<?php echo  $ser->service_icon;?>">
+                            </a>
+                           </div>
+                           <div class="add_info">
+                            <a href="<?php echo $link; ?>"><h3><?php echo $ser->service_title;?></h3></a>
+                           </div>
+                        </div>
+                        <?php
+                      }
+                      ?>
+                        
+          </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+
+<div class="examinations">
+ 
+</div>
+
+
+
+<section class="fact text-center">
+  <div class="container-fluid bluesection">
+ <div class="row">
+  
+
+   <div class="container main-container" id="cjobs">
+     <div class="col-xs-12">
+      
+      <ul id="counter">
+       
+          <h3>Our Records</h3>
+       <li class="col-md-3 col-sm-6 col-xs-12 mt-btn-20 res767-wid-50">
+        <div class="counter-single">
+          <img src="<?php echo base_url()?>assets/images/fact-3.png" class="img-responsive">
+        <div class="count"><div class=""><?php echo @$records[0]->record_1_count; ?></div></div><span><?php echo @$records[0]->record_1_title; ?></span>
+      </div>
+      </li>
+       <li class="col-md-3 col-sm-6 col-xs-12 mt-btn-20 res767-wid-50">
+        <div class="counter-single">
+        <img src="<?php echo base_url()?>assets/images/aua.png" class="img-responsive">
+        <div class="count"><div class=""><?php echo @$records[0]->record_2_count; ?></div></div><span><?php echo @$records[0]->record_2_title; ?></span>
+      </div>
+      </li>
+       <li class="col-md-3 col-sm-6 col-xs-12 mt-btn-10 res767-wid-50">
+        <div class="counter-single">
+        <img src="<?php echo base_url()?>assets/images/fact-1.png" class="img-responsive">
+        <div class="count"><div class=""><?php echo @$records[0]->record_3_count; ?></div></div><span><?php echo @$records[0]->record_3_title; ?></span>
+      </div>
+      </li>
+      <li class="col-md-3 col-sm-6 col-xs-12 mt-btn-10 res767-wid-50">
+        <div class="counter-single">
+        <img src="<?php echo base_url()?>assets/images/fact-2.png" class="img-responsive">
+        <div class="count"><div class=""><?php echo @$records[0]->record_4_count; ?></div></div><span><?php echo @$records[0]->record_4_title; ?></span>
+      </div>
+      </li>
+  
+
+     </ul>                
+   </div>
+
+ </div>
+</div>
+</div>
+</section>
+
+
+
+<div class="back-main">
+
+<div class="blog_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 p-no">
+         <div class="nopad test-app courses-area">
+            <h2 class="head-title text-center"> Articles</h2>
+        </div>
+        
+
+
+      </div>
+       <div class="modcontent clearfix">    
+                    <div id="customers-testimonials" class="blog-slider">
+                        
+                        
+                         <?php foreach($articles_list as $row){?>
+
+                        <div class="item">
+                            <div class="col-sm-12">
+                              <div class="blog_cnt">
+                               
+                                <div class="blog_img">
+                                  <img src="<?php echo base_url();?>assets/uploads/blog/<?php echo @$row->blog_image;?>" class="img-responsive">
+                                </div>
+                                <div class="blog_info">
+                                  <h4><a href="<?php echo $this->url->link(151).'/'.@$row->blog_id; ?>"><?php echo @$row->blog_title ;?></a></h4>
+                                 
+
+                                  <?php echo character_limiter(strip_tags(@$row->blog_description),80) ;?>
+
+
+
+                                  <div class="test_btn">
+                                      <!-- <button type="Submit" > </button> -->
+                                     <a href="<?php echo $this->url->link(151).'/'.@$row->blog_id; ?>" class="btn_read_more">Read More</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                      <?php }?>
+
+
+
+                      <!--   <div class="item">
+                            <div class="col-sm-12">
+                              <div class="blog_cnt">
+                                
+                                <div class="blog_img">
+                                  <img src="<?php echo base_url()?>assets/images/add/add2.jpg" class="img-responsive">
+                                </div>
+                                <div class="blog_info">
+                                  <h4><a href="#">Choosing The Right Investment Avenue</a></h4>
+                                  <p>Wednesday, June 25, 2014, Contributed By: Team NJ Publications Today you have many options for investment. In fact the options…</p>
+                                  <div class="test_btn">
+                                     
+                                     <a href="#!" class="btn_read_more">Read More</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+
+                        <div class="item">
+                            <div class="col-sm-12">
+                              <div class="blog_cnt">
+                               
+                                <div class="blog_img">
+                                  <img src="<?php echo base_url()?>assets/images/add/add3.jpg" class="img-responsive">
+                                </div>
+                                <div class="blog_info">
+                                  <h4><a href="#">Myths of Mutual Funds</a></h4>
+                                  <p>Thursday, July 31, 2014, Contributed By: Team NJ Publications Mutual funds have witnessed a growth in popularity over the past…</p>
+                                  <div class="test_btn">
+                                     
+                                     <a href="#!" class="btn_read_more">Read More</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        
+                        <div class="item">
+                           <div class="col-sm-12">
+                              <div class="blog_cnt">
+                               
+                                <div class="blog_img">
+                                  <img src="<?php echo base_url()?>assets/images/add/add4.jpg" class="img-responsive">
+                                </div>
+                                <div class="blog_info">
+                                  <h4><a href="#!">Monday, July 28, 2014, Contributed By: Team NJ Publications Wealth creation is not easy. But neither it is difficult for…</p>
+                                  <div class="test_btn">
+                                     
+                                     <a href="#!" class="btn_read_more">Read More</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div> -->
+                        
+                        
+                       
+                        
+                       
+                        
+                       
+                        
+                    </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!---full width sectio fulid-->
+ <!-- Testimionals Slider-->
+
+<div class="testimionals_sec">
+ <div class="container testimionals" >
+ <div class="row">
+  <div class="">
+   <div class="col-sm-12 col-xs-12 nopad test ">
+    <h2 class="text-center"> What People Say About Us</h2>
+  <div id="testio" class="owl-carousel owl-template">
+   
+
+<?php foreach($testimonial as $test){?>
+      <div class="item">
+       
+        <div class="info">
+         
+         <p><?php echo character_limiter(strip_tags($test->testimonial_content),300);?></p>
+        <?php if($test->testimonial_image !=''){?> <img src="<?php echo base_url()?>assets/uploads/testimonial/<?php echo $test->testimonial_image;?>" alt="Photo" /> 
+        <?php } else{?>
+                  <img src="<?php echo base_url()?>assets/uploads/no_image.png" alt="Photo" height="100px" width="100px"> <?php }?>
+
+         <h5><?php echo $test->testimonial_name;?></h5>
+         <h6><?php echo $test->testimonial_designation;?></h6>
+         <div class="test_btn">
+            <!-- <button type="Submit" > </button> -->
+            <a href="<?php echo $this->url->link(136);?>" class="btn_read_more">Read More</a>
+         </div>
+        </div>
+         
+      </div>
+
+      <?php } ?>
+
+    </div>
+
+    
+
+
+  </div>
+ 
+</div>     
+</div>
+</div>
+</div>
+<!-- Testimionals Slider-->
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Green Banner-->
+
+<!-- Green Banner-->
+
+
+
+
+

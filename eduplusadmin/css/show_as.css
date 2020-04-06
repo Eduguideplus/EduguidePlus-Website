@@ -1,0 +1,42 @@
+
+.show_as{
+	margin-top: 172px;
+	z-index: 1001; 
+	position: absolute; 
+	margin-left: 411px; 
+	width: 164px;
+}
+
+.show_as2{
+	margin-top: 225px;
+	z-index: 1001; 
+	position: absolute; 
+	margin-left: 411px; 
+	width: 164px;
+}
+
+.show_as3{
+	margin-top: 225px !important;
+}
+
+.show_as4{
+	margin-top: 0 !important;
+}
+
+
+.show_as5{
+	margin-top: 107px;
+	z-index: 1001; 
+	position: absolute; 
+	margin-left: 411px; 
+	width: 164px;
+}
+
+show_as6{
+	margin-top: 125px;
+	z-index: 1001; 
+	position: absolute; 
+	margin-left: 411px; 
+	width: 164px;
+}
+

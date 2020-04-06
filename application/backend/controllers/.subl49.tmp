@@ -1,0 +1,642 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class manage_question extends CI_Controller {
+	
+public function __construct()
+{
+	parent::__construct();
+	$this->load->database();
+	$this->load->library('session');
+	 
+	$this->load->helper('url');
+	$this->load->helper('form');
+	$this->load->library('form_validation');
+	$this->load->library('email');			
+	$this->load->library('image_lib');
+	$this->load->model('common/common_model');
+  $this->load->library('excel');
+   $this->load->model('set_model');
+
+		
+}
+
+public function view()
+{
+	
+	if(get_cookie('session_user_id')!='')
+		{
+			$user_id= get_cookie('session_user_id');
+		}
+		else{
+			redirect('index.php/login','refresh');
+		}
+	$data['question_list']=$this->admin_model->selectAll('tbl_questions');
+	
+
+	$this->load->view('template/admin_header');
+	$this->load->view('template/admin_leftmenu');
+	$this->load->view('question/question_table_view',$data);
+	$this->load->view('template/adminfooter_category');
+	
+	
+}
+
+
+
+public  function exceldataadd() {  
+
+  if(get_cookie('session_user_id')!='')
+    {
+      $user_id= get_cookie('session_user_id');
+    }
+    else{
+      redirect('index.php/login','refresh');
+    }
+//Path of files were you want to upload on localhost (C:/xampp/htdocs/ProjectName/uploads/excel/)  
+         $configUpload['upload_path'] = '../assets/uploads/excel/';
+         $configUpload['allowed_types'] = 'xls|xlsx|csv';
+         $configUpload['max_size'] = '5000';
+         $this->load->library('upload', $configUpload);
+         $this->upload->do_upload('qfile');  
+         $upload_data = $this->upload->data(); //Returns array of containing all of the data related to the file you uploaded.
+         $file_name = $upload_data['file_name']; //uploded file name
+        $extension=$upload_data['file_ext'];    // uploded file extension
+    
+//$objReader =PHPExcel_IOFactory::createReader('Excel5');     //For excel 2003 
+ $objReader= PHPExcel_IOFactory::createReader('Excel2007'); // For excel 2007     
+          //Set to read only
+          $objReader->setReadDataOnly(true);      
+        //Load excel file
+     $objPHPExcel=$objReader->load('../assets/uploads/excel/'.$file_name);    
+         $totalrows=$objPHPExcel->setActiveSheetIndex(0)->getHighestRow();   //Count Numbe of rows avalable in excel         
+         $objWorksheet=$objPHPExcel->setActiveSheetIndex(0); 
+         //Truncate Data
+         //$this->db->truncate('tbl_questions');               
+          //loop from first data untill last data
+         $current_date=date('Y-m-d H:i:s');
+          for($i=2;$i<=$totalrows;$i++)
+          {
+              $question= $objWorksheet->getCellByColumnAndRow(0,$i)->getValue();     
+             // $answer= $objWorksheet->getCellByColumnAndRow(1,$i)->getValue(); //Excel Column 1
+              $section= $objWorksheet->getCellByColumnAndRow(1,$i)->getValue();
+              $exam= $objWorksheet->getCellByColumnAndRow(2,$i)->getValue();
+              $passage_id= $objWorksheet->getCellByColumnAndRow(3,$i)->getValue();
+              $option1= $objWorksheet->getCellByColumnAndRow(4,$i)->getValue();
+              $option2= $objWorksheet->getCellByColumnAndRow(5,$i)->getValue();
+              $option3= $objWorksheet->getCellByColumnAndRow(6,$i)->getValue();
+              $option4= $objWorksheet->getCellByColumnAndRow(7,$i)->getValue();
+              $option5= $objWorksheet->getCellByColumnAndRow(8,$i)->getValue();
+              $answer= $objWorksheet->getCellByColumnAndRow(9,$i)->getValue();
+
+        //$Email= $objWorksheet->getCellByColumnAndRow(2,$i)->getValue(); //Excel Column 2
+       // $Mobile=$objWorksheet->getCellByColumnAndRow(3,$i)->getValue(); //Excel Column 3
+        //$Address=$objWorksheet->getCellByColumnAndRow(4,$i)->getValue(); //Excel Column 4
+        $data_user=array('question'=>$question,  'section_id'=>$section, 'exam_id'=>$exam, 'passage_id'=>$passage_id, 'created_on'=>$current_date, 'created_by'=>$user_id);
+        //$this->excel_data_insert_model->Add_User($data_user);
+
+        $this->db->insert('tbl_questions',$data_user);
+        $last_id = $this->db->insert_id();
+        $count=4;
+        for($op=1;$op<=5;$op++)
+        {
+          $option= $objWorksheet->getCellByColumnAndRow($count,$i)->getValue();
+            if($option!='')
+            {
+                if($op==$answer)
+                {
+                  $correct='Yes';
+
+                }
+                else
+                {
+                  $correct='No';
+                }
+              $data_answ=array('que_id'=>$last_id,  'choice'=>$option, 'is_correct'=>$correct, 'created_on'=>$current_date, 'created_by'=>$user_id);
+
+               $this->db->insert('tbl_question_choice',$data_answ);
+            }
+
+            $count=$count+1;
+          
+
+        }
+              
+              
+          }
+             @unlink('../assets/uploads/excel/'.$file_name); //File Deleted After uploading in database .       
+             redirect('index.php/manage_question/view/','refresh');
+             
+       
+     }
+
+
+     function single_question_insert()
+     {
+          if(get_cookie('session_user_id')!='')
+        {
+          $user_id= get_cookie('session_user_id');
+        }
+        else{
+          redirect('index.php/login','refresh');
+        }
+        $current_date=date('Y-m-d H:i:s');
+        $exam_id=$this->input->post('exam_id');
+        $section_id=$this->input->post('question_type');
+        if($section_id==3)
+        {
+          $question=$this->input->post('questn');
+          //print_r($question); exit;
+          $passage=$this->input->post('passage_id');
+          for($i=0;$i<count($question);$i++)
+          {
+
+            $option = $this->input->post('option_'.$i);
+            $answer = $this->input->post('answer_'.$i);
+            //echo '<pre>'; print_r($option); exit;
+            if($question[$i]!='')
+            {
+            $data_array=array(
+                'question'=>$question[$i],
+                'section_id'=>$section_id,
+                'exam_id'=>$exam_id,
+                'passage_id'=>$passage,
+                'created_on'=>$current_date, 
+                'created_by'=>$user_id
+
+
+              );
+            $this->db->insert('tbl_questions',$data_array);
+            $insert_que_id = $this->db->insert_id();
+
+              for($j=0;$j<count($option);$j++)
+              {
+                  if($option[$j]!='')
+                  {
+                      $data_ans_array=array(
+
+                        'choice'=>$option[$j],
+                        'que_id'=>$insert_que_id,
+                        'is_correct'=>$answer[$j],
+                        'created_by'=>$user_id,
+                        'created_on'=>$current_date, 
+               
+                      );
+                      $this->db->insert('tbl_question_choice',$data_ans_array);
+                  }
+              }
+
+            }
+          }
+
+        }
+        else
+        {
+
+          $option = $this->input->post('option');
+          $answer = $this->input->post('answer');
+
+          $question=$this->input->post('question');
+          $data_array=array(
+
+              'question'=>$question,
+              'section_id'=>$section_id,
+              'exam_id'=>$exam_id,
+              'created_on'=>$current_date, 
+              'created_by'=>$user_id
+
+            );
+
+          $this->db->insert('tbl_questions',$data_array);
+          $insert_que_id = $this->db->insert_id();
+
+          for($i=0;$i<count($option);$i++)
+          {
+            if($option[$i]!='' && $answer[$i]!='')
+            {
+            $data_ans_array=array(
+
+                'choice'=>$option[$i],
+                'que_id'=>$insert_que_id,
+                'is_correct'=>$answer[$i],
+                'created_by'=>$user_id,
+                'created_on'=>$current_date, 
+               
+
+
+              );
+            $this->db->insert('tbl_question_choice',$data_ans_array);
+            }
+          }
+        }
+
+
+            redirect('index.php/manage_question/view/','refresh');
+
+     }
+
+
+
+    function add()
+    {
+    	if(get_cookie('session_user_id')!='')
+		{
+			$user_id= get_cookie('session_user_id');
+		}
+		else{
+			redirect('index.php/login','refresh');
+		}
+    	
+
+    $this->load->view('template/admin_header');
+		$this->load->view('template/admin_leftmenu');
+		$this->load->view('question/question_add_view');
+		$this->load->view('template/adminfooter_category');
+    }
+
+    function single_add()
+    {
+      if(get_cookie('session_user_id')!='')
+    {
+      $user_id= get_cookie('session_user_id');
+    }
+    else{
+      redirect('index.php/login','refresh');
+    }
+     $data['type']=$this->common_model->common($table_name = 'tbl_exam_type', $field = array(), $where = array('exam_type_id'=>'o','status'=>'Active'), $where_or = array(), $like = array(), $like_or = array(), $order = array(), $start = '', $end = ''); 
+     //$data['section']=$this->admin_model->selectAll('tbl_question_section');
+     $data['section']=$this->admin_model->selectOne('tbl_question_section','section_status','active'); 
+     $data['passage']=$this->admin_model->selectAll('tbl_passage');
+
+    $this->load->view('template/admin_header');
+    $this->load->view('template/admin_leftmenu');
+    $this->load->view('question/question_singleadd_view',$data);
+    $this->load->view('template/adminfooter_category');
+
+    }
+
+
+    function single_edit()
+    {
+      if(get_cookie('session_user_id')!='')
+    {
+      $user_id= get_cookie('session_user_id');
+    }
+    else{
+      redirect('index.php/login','refresh');
+    }
+
+     $edit_id = $this->uri->segment(3);
+     $data['edit_single_ques'] = $this->admin_model->selectOne('tbl_questions','id',$edit_id);
+
+
+     $data['type']=$this->admin_model->selectOne('tbl_exam_type','exam_type_id','o'); 
+     //$data['section']=$this->admin_model->selectAll('tbl_question_section');
+     $data['section']=$this->admin_model->selectOne('tbl_question_section','section_status','active');
+     $data['passage']=$this->admin_model->selectAll('tbl_passage');
+
+    $this->load->view('template/admin_header');
+    $this->load->view('template/admin_leftmenu');
+    $this->load->view('question/question_singleedit_view',$data);
+    $this->load->view('template/adminfooter_category');
+
+    }
+
+    function single_question_update()
+     {
+        if(get_cookie('session_user_id')!='')
+        {
+          $user_id= get_cookie('session_user_id');
+        }
+        else{
+          redirect('index.php/login','refresh');
+        }
+
+
+        $edit_id = $this->input->post('edit_id');       
+        $chk_pass = $this->admin_model->selectOne('tbl_questions','id',$edit_id);         
+        $psg_id = @$chk_pass[0]->passage_id;
+
+        $current_date=date('Y-m-d H:i:s');
+        $exam_id=$this->input->post('exam_id');
+        $section_id=$this->input->post('question_type');
+    
+        if($psg_id!='' || $section_id==3)
+        {
+          //echo 'exit'; exit;
+          $this->db->where('passage_id',$psg_id);
+          $this->db->where('exam_id',$exam_id);
+          $this->db->delete('tbl_questions');
+
+          
+
+          $question=$this->input->post('questn');
+          $passage=$this->input->post('passage_id');
+          for($i=0;$i<count($question);$i++)
+          {
+
+            $option = $this->input->post('option_'.$i);
+            $answer = $this->input->post('answer_'.$i);
+
+            echo '<pre>'; print_r($option); exit;
+
+            if($question[$i]!='')
+            {
+                $data_array=array(
+                'question'=>$question[$i],
+                'section_id'=>$section_id,
+                'exam_id'=>$exam_id,
+                'passage_id'=>$passage,
+                'created_on'=>$current_date, 
+                'created_by'=>$user_id
+
+
+              );
+            $this->db->insert('tbl_questions',$data_array);
+            $insert_que_id = $this->db->insert_id();
+
+            $chk_ans = $this->admin_model->selectOne('tbl_question_choice','que_id',$insert_que_id);  
+            if(count($chk_ans)>0)
+            {
+              $this->db->where('que_id',$insert_que_id);
+              $this->db->delete('tbl_question_choice');
+            }   
+
+            for($j=0;$j<count($option);$j++)
+              {
+                  if($option[$j]!='')
+                  {
+                      $data_ans_array=array(
+
+                        'choice'=>$option[$j],
+                        'que_id'=>$insert_que_id,
+                        'is_correct'=>$answer[$j],
+                        'created_by'=>$user_id,
+                        'created_on'=>$current_date, 
+               
+                      );
+                      $this->db->insert('tbl_question_choice',$data_ans_array);
+                  }
+              }
+
+            }
+          }
+
+        }
+        else
+        {
+
+          $option = $this->input->post('option');
+          $answer = $this->input->post('answer');
+          //echo '<pre>'; print_r($answer); exit;
+          $question=$this->input->post('question');
+          $data_array=array(
+
+              'question'=>$question,
+              'section_id'=>$section_id,
+              'exam_id'=>$exam_id,
+              'modified_on'=>$current_date, 
+              'modified_by'=>$user_id
+
+            );
+          //print_r($data_array); exit;
+          $this->db->where('id',$edit_id);
+          $this->db->update('tbl_questions',$data_array);
+
+          $chk_ans = $this->admin_model->selectOne('tbl_question_choice','que_id',$edit_id); 
+          if(count($chk_ans)>0)
+          {
+            $this->db->where('que_id',$edit_id);
+            $this->db->delete('tbl_question_choice');
+          } 
+
+          
+          for($i=0;$i<count($option);$i++)
+          {
+            if($option[$i]!='' && $answer[$i]!='')
+            {
+            $data_ans_array=array(
+
+                'choice'=>$option[$i],
+                'que_id'=>$edit_id,
+                'is_correct'=>$answer[$i],
+                'created_by'=>$user_id,
+                'created_on'=>$current_date, 
+               
+
+
+              );
+            $this->db->insert('tbl_question_choice',$data_ans_array);
+            }
+          }
+        }
+
+        redirect('index.php/manage_question/view/','refresh');
+
+     }
+
+    function check_question_type()
+    {
+        $type_id=$this->input->post('type_id');
+        $exm_id=$this->input->post('exm_id');
+        if($type_id==3)
+        {
+          $data['status']=1;
+          @$data['passg']=$this->set_model->get_passage($exm_id,$type_id);
+
+
+        }
+        else
+        {
+          $data['status']=0;
+           @$data['passg']=$this->set_model->get_passage($exm_id,$type_id);
+        }
+      
+      
+
+        echo json_encode(array('result'=>$data));
+
+    }
+
+
+function set_description_val()
+    {
+        $id=$this->input->post('type_id');
+
+        $data = $this->admin_model->selectOne('tbl_passage','id',$id);
+      /*  $data['descpn']= $sub[0]->description;*/
+        
+      
+
+        echo json_encode($data);
+
+    }
+
+function delete()
+{
+	$id=$this->uri->segment(3);
+
+	$question = $this->admin_model->selectOne('tbl_questions','id',$id);
+
+	if(count($question)!=0)
+			{
+			
+
+			
+				$this->db->where('id',$id);
+
+				$this->db->delete('tbl_questions');
+				
+				$this->session->set_flashdata('succ_msg','One question deleted successfully.');
+			
+			}
+			redirect('index.php/manage_question/view/','refresh');
+
+	
+}
+function edit()
+
+{
+		if(get_cookie('session_user_id')!='')
+		{
+			$user_id= get_cookie('session_user_id');
+		}
+		else{
+			redirect('index.php/login','refresh');
+		}
+
+		$company_id =$this->uri->segment(3);
+		
+
+		$data['company']=$this->admin_model->selectone('tbl_company','id',$company_id);
+
+		$this->load->view('template/admin_header');
+		$this->load->view('template/admin_leftmenu');
+		$this->load->view('company/question_edit_view',$data);
+		$this->load->view('template/adminfooter_category');
+}
+function update()
+{
+
+    if(get_cookie('session_user_id')!='')
+    {
+      $user_id= get_cookie('session_user_id');
+    }
+    else{
+      redirect('index.php/login','refresh');
+    }
+		  $edit_id=$this->input->post('edit_id');
+
+		
+        $company=$this->input->post('company_name');
+        $old_image=$this->input->post('old_image');
+
+    	$image=NULL;
+
+        if(($_FILES['company_icon']['name'])!='')
+          {
+          $new_name =time();      
+          $config['upload_path'] ='../assets/uploads/company_logo/';
+          $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp';    
+          $config['file_name']=$new_name; 
+          
+            
+          $this->load->library('upload', $config);  
+          //==========end:resize body_part image======================   
+          $field_name = "company_icon"; 
+              
+          $image=NULL;   
+          if($this->upload->do_upload($field_name))
+          { 
+            
+           $file_info = $this->upload->data();
+           $original_image_file_name = $file_info['raw_name'].$file_info['file_ext'];
+           $file_size=$file_info['file_size'];
+           $this->image_lib->clear();     
+           $image =$file_info['raw_name'].$file_info['file_ext']; 
+            
+          
+           
+           
+           $image_config["image_library"] = "gd2";
+           $image_config["source_image"] ='../assets/uploads/company_logo/'.$image;   
+           $image_config['create_thumb'] = FALSE;
+           $image_config['maintain_ratio'] = FALSE;
+           $image_config['new_image'] = '../assets/uploads/company_logo/'.$image; 
+           $image_config['quality'] = "100%";
+           $image_config['width'] = 252;
+           $image_config['height']= 78;
+           
+           $image_config['master_dim'] = "height";
+           $this->image_lib->initialize($image_config);
+           $this->image_lib->resize(); 
+           $this->image_lib->clear();
+          } //end if
+        }
+          if($image=='')
+          {
+            $image=$old_image;
+          }
+          else
+          {
+            @unlink('../assets/uploads/company_logo/'.$old_image);
+          }
+    	
+    	$current_date=date('Y-m-d H:i:s');
+    	$data = array(
+
+            
+            'company_name'=>$company,
+            'company_logo'=>$image,
+            'modified_by'=>$user_id,
+            'modified_on'=>$current_date,
+            
+            );
+    	//echo '<pre>'; print_r($data); exit;
+    	$this->db->where('id',$edit_id);
+    	$this->db->update('tbl_company',$data);
+    	$this->session->set_flashdata('succ_msg','One Company updated successfully.');
+    	redirect('index.php/manage_company/view/','refresh');
+
+}
+
+
+function change_to_active()
+{
+	
+		$company_ids=$this->input->post('id');
+		$status=$this->input->post('status');
+		$data=array('status'=>$status);
+
+
+		for($i=0;$i<count($company_ids);$i++)
+		{
+			$id=$company_ids[$i];
+			$this->db->where('id',$id);
+
+			if($this->db->update('tbl_company',$data))
+			{
+				$result=1;
+			}
+			else
+			{
+				$result=0;
+			}
+
+
+			}
+			
+		echo json_encode(array('changedone'=>$result));
+		
+
+
+}
+
+
+		
+		
+		
+}
+
+
+
+

@@ -1,0 +1,77 @@
+﻿
+
+/* =============================================================
+   GENERAL STYLES
+ ============================================================ */
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size:16px;
+    line-height:30px;
+}
+
+.emp-img img.img-responsive {
+    position: absolute;
+    width: 100px;
+}
+.pad-top-botm {
+    padding-bottom:20px;
+    padding-top:30px;
+}
+h4 {
+    text-transform:uppercase;
+}
+/* =============================================================
+   PAGE STYLES
+ ============================================================ */
+
+.contact-info span {
+    font-size:14px;
+    padding:0px 50px 0px 50px;
+}
+
+.contact-info hr {
+    margin-top: 0px;
+margin-bottom: 0px;
+}
+
+.client-info {
+    font-size:15px;
+}
+
+.ttl-amts {
+    text-align:right;
+    padding-right:50px;
+}
+
+hr {
+    margin-top: 0px;
+margin-bottom: 0px;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+
+.borderless table {
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+}
+
+.border-right{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 1px;
+    border-bottom: 0px;
+border-style:solid double}
+
+.border-left{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+border-style:solid double}
+
+
